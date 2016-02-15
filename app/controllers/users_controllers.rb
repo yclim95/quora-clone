@@ -1,3 +1,5 @@
+set :public_folder, 'public'
+
 get '/' do
   @questions = Question.all
   erb :"static/index"

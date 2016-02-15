@@ -3,6 +3,7 @@ require 'sinatra/flash'
 
 enable :sessions
 
+set :public_folder, 'public'
 post '/answers/questions/:question_id' do  #Post Answer
 
   if logged_in?

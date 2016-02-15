@@ -1,3 +1,5 @@
+set :public_folder, 'public'
+
 get '/questions/new' do
   erb :"static/questions"
 end
