@@ -19,11 +19,11 @@
 
 
 <h1>Answers</h1>
-<% if @answers.nil? %>  <!-- If answer is NOTHING  -->
+<% if @answers.empty? %>  <!-- If answer is NOTHING  -->
  <p>There is no Answer posted yet!</p>
 <% else %>  <!-- If answer got VALUE -->
-<% @answers.each do |answer| %>
-  <textarea readonly><%= answer.text %></textarea>
-  <br>
-<% end %>
+	<% @answers.each do |answer| %>
+	  <textarea readonly><%= answer.text %></textarea>
+	  <br>
+	<% end %>
 <% end %>

@@ -13,8 +13,8 @@ post '/questions' do
 end
 
 get '/questions/:question_id' do
- @user = current_user
- @question = Question.find(params[:question_id])
- @answers = Answer.where(question_id: @question.id)
- erb :"static/question_index"
+  @user = current_user
+  @question = Question.find(params[:question_id])
+  @answers = Answer.where(question_id: @question.id)
+  erb :"static/question_index"
 end
