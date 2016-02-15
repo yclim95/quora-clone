@@ -16,3 +16,16 @@
  <textarea placeholder="Answer" name="answer[text]"></textarea>
  <input type="submit" value="Post">
 </form>
+
+
+<h1>Answer</h1>
+<% if @answers.nil? %>  <!-- If answer is NOTHING  -->
+ <p>There is no Answer posted yet!</p>
+<% else %>  <!-- If answer got VALUE -->
+<% @answers.each do |answer| %>
+  <h2>Answer <%= answer.id %> </h2>
+  <h3>Answer:  <%= answer.text %> </h3>
+<% end %>
+<% end %>
+
+
