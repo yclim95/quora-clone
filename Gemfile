@@ -15,6 +15,9 @@ gem 'activerecord'
 gem 'activesupport'
 gem 'sinatra-activerecord'
 
+gem 'sinatra-flash'
+gem "sinatra-param"
+
 # Adding Database elements
 gem 'pg'
 
@@ -23,6 +26,9 @@ gem 'rake'
 
 # Adding rspec for running unit testing
 gem 'rspec'
+
+#Adding bcrypt
+gem 'bcrypt','~> 3.1.7'
 
 group :development, :test do
 	# Adding shotgun for local web hosting

@@ -1,2 +1,69 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<% if logged_in?%>
+  <% user = current_user %>
+  <p> Log IN </p>
+  <p>Hello, <%=user.user_name %> </p>
+  <a href="/signout">Sign Out</a>
+  <% user = current_user %>
+  <p><a href= "/users/<%=user.id%> "> User Profile </a></p>
+  <p><a href="questions/new">Create Questions</a></p>
+  <p><a href="/users/questions">View Questions Post</a></p>
+
+<h1>Questions</h1>
+<table border="1">
+  <tr>
+    <th>No</th>
+    <th>Title</th>
+    <th>Subject</th>
+  </tr>
+
+  <% @questions.each do |question| %>
+    <tr>
+      <td><a href="/questions/<%= question.id%>"> <%= question.id %> </a></td>
+      <td><%= question.title %></td>
+      <td><%= question.subject %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% else %>
+  <h2>Sign up for an account!</h2>
+  <form method="post" action="/signup">
+
+    <input type="text" placeholder="Your name" name="user[user_name]">
+
+    <input type="text" placeholder="Email" name="user[email]">
+
+    <br><input type="password" placeholder="Password" name="user[password]"></br>
+
+    <input type="submit" value="Sign up">
+  </form>
+
+  <h2>Log in today!</h2>
+  <form method="post" action="/login">
+
+    <input type="text" placeholder="Email" name="user[email]">
+
+    <input type="password" placeholder="Password" name="user[password]">
+
+    <input type="submit" value="Sign in">
+
+
+  </form>
+<h1>Questions</h1>
+<table border="1">
+  <tr>
+    <th>No</th>
+    <th>Title</th>
+    <th>Subject</th>
+  </tr>
+
+  <% @questions.each do |question| %>
+    <tr>
+      <td><a href="/questions/<%= question.id%>"> <%= question.id %> </a></td>
+      <td><%= question.title %></td>
+      <td><%= question.subject %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% end %>
