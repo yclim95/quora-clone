@@ -3,14 +3,39 @@
   <p style="color:red"><a href="/">Log in</a></p>
 <% end %>
 
+<% if flash[:error] %>
+  <p class="notice"><%= flash[:error] %></p>
+<% end %>
+
 <h1> Question <%= @question.id %> </h1>
 
 <h2>Title : <%= @question.title %> </h2>
 
 <h2>Subject : <%= @question.subject %> </h2>
 
+<% @user = current_user %>
+<% if  current_user.user_votable_for_questions?(@question) %>
+<input type="submit" value="Like" id="question_vote">
+	  <input type="button" disabled value="<%= @question.voters_questions.count %>" > 
+<% else %> <!-- Accessing the user's own post -->
+  <% if current_user.user_vote_questions_valid?(current_user, @question) %>
+	<form method="post" action="/questions/<%=@question.id%>/question_votes/:question_vote_id/update">
+	  <input type="submit" value="Like">
+	  <input type="button" disabled value="<%= @question.voters_questions.count %>" > 
+	</form>
+	<% else %>
+	<form method="post" action="/questions/<%=@question.id%>/question_votes/:question_vote_id/destroy">
+		  <input type="submit" value="Unlike">
+		  <input type="button" disabled value="<%= @question.voters_questions.count %>" > 
+	</form>
+	<% end %>
+<% end %>
 <br>
 <br>
+
+
+
+
 
 <form method="post" action="/answers/questions/<%=@question.id%>">
 

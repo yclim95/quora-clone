@@ -1,8 +1,14 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  has_many :questions
-  has_many :answers
+  has_many :questions, :dependent => :destroy
+  has_many :answers, :dependent => :destroy
+
+  has_many :question_votes, :dependent => :destroy
+  has_many :answer_votes, :dependent => :destroy
+
+  has_many :voted_questions, :through => :question_votes, :source => :question  #Will get the votes/likes
+  has_many :voted_answers, :through => :answer_votes, :source => :answer  #Will get the votes/likes
 # attr_accessor :password
   has_secure_password
 
@@ -22,6 +28,24 @@ class User < ActiveRecord::Base
       return false
     end
   end
+
+  def user_votable_for_questions?(question) 
+    # Check (when current user posted) --> return false if user try to post answer
+   question.user == self
+     #question && question.user != self && !question_votes.exists?(question_id: question.id)
+ end
+
+
+ def user_vote_questions_valid?(user,question)
+    #Check if user have vote more than ONE 
+    byebug  
+    if user.voted_questions.count == 0 #Not that particular questions 
+      return true
+    else
+      return false
+    end
+ end
+
 end
 
 # def encrypt_password
@@ -29,4 +53,4 @@ end
 #     self.salt = BCrypt::Engine.generate_salt
 #     self.encrypted_passsword = BCrype::Engine.hash_secret(password, salt)
 #   end
-# end
+

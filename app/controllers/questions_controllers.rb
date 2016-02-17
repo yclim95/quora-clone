@@ -1,10 +1,11 @@
 set :public_folder, 'public'
 
 get '/questions/new' do
+  @user = current_user
   erb :"static/questions"
 end
 
-post '/questions' do
+post '/questions' do  
   @user = current_user
   @question = Question.new(params[:question].merge(user_id: @user.id))
   if @question.save
